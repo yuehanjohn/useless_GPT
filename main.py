@@ -1,8 +1,7 @@
 import os
 from crewai import Agent, Task, Crew
 from langchain_groq import ChatGroq
-os.environ["GROQ_API_KEY"] ='YOUR_GROQ_API'
-
+os.environ["GROQ_API_KEY"] ='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'
 
 openai_llm = ChatGroq(api_key=os.environ.get("GROQ_API_KEY"), model="llama-3.1-70b-versatile")
 
@@ -26,15 +25,10 @@ useless_task = Task(
 
 crew = Crew(agents=[uselessAI], tasks=[useless_task])
 
-
-while(True):
-    question = input("Ask your question here~~(Type q to quit): ")
-    if question == "q":
-        print("Thank you for wasting your life on this AI~~~")
-        break 
-    # Get your crew to work!
-    result = crew.kickoff(inputs={"input": question})
-
-    print("#############")
-    print(result)
-
+def functionality(question):    
+    while(True):
+        if question == "q":
+            return "Thank you for wasting your life on this AI! <3"
+            break 
+        result = crew.kickoff(inputs={"input": question})
+        return result
