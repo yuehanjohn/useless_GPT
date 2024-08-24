@@ -1,7 +1,7 @@
 import os
-from crewai import Agent, Task, Crew
+from crewai import Agent, Task, Crew, Process
 from langchain_groq import ChatGroq
-os.environ["GROQ_API_KEY"] ='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'
+os.environ["GROQ_API_KEY"] ='INSERT_API_KEY_HERE'
 
 #from test import fetch_tkinter_image
 
@@ -48,8 +48,9 @@ def functionality(question):
     while(True):
         if question == "q":
             return "Thank you for wasting your life on this AI! <3"
-            break 
         result = crew.kickoff(inputs={"input": question})
+        if "agent has" in str(result).lower():
+            return "I DON'T WANT TO TALK TO YOU, GO AWAY!"
         return result
 
 def opposite_text(prompt):
