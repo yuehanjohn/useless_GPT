@@ -32,6 +32,8 @@ class EnhancedOutputInterface:
         master.geometry("1920x1080")
         master.configure(bg='#f0f0f0')
 
+        self.is_recording = False
+        self.record_text_index = 0
         self.create_widgets()
 
     def create_widgets(self):
@@ -52,8 +54,15 @@ class EnhancedOutputInterface:
         self.input_entry = tk.Text(input_frame, wrap=tk.WORD, height=int(0.15 * 1600 / input_font.metrics()['linespace']), font=input_font)
         self.input_entry.pack(fill=tk.X, expand=True)
 
-        submit_button = ttk.Button(input_frame, text="Submit", command=self.on_submit)
-        submit_button.pack(pady=(10, 0))
+        # Create a frame for buttons
+        button_frame = ttk.Frame(input_frame)
+        button_frame.pack(pady=(10, 0))
+
+        submit_button = ttk.Button(button_frame, text="Submit", command=self.on_submit)
+        submit_button.pack(side=tk.LEFT, padx=(0, 10))
+
+        self.record_button = ttk.Button(button_frame, text="Record", command=self.toggle_recording)
+        self.record_button.pack(side=tk.LEFT)
 
         self.output_frame = ttk.Frame(self.master, padding="10")
         self.output_frame.pack(expand=True, fill=tk.BOTH)
@@ -123,7 +132,7 @@ class EnhancedOutputInterface:
     def on_submit(self):
         input_text = self.input_entry.get("1.0", tk.END).strip()
         if input_text:
-            output = functionality(input_text)  # Replace this with functionality(input_text) when ready
+            output = functionality(input_text)
             self.update_output(f"{output}\n\n")
             self.input_entry.delete("1.0", tk.END)
             
@@ -177,6 +186,19 @@ class EnhancedOutputInterface:
         self.image_canvas.create_image(x, y, anchor=tk.NW, image=photo)
         self.image_canvas.image = photo  # Keep a reference to prevent garbage collection
 
+    def toggle_recording(self):
+        self.is_recording = not self.is_recording
+        if self.is_recording:
+            self.update_record_button_text()
+        else:
+            self.record_button.config(text="Record")
+
+    def update_record_button_text(self):
+        if self.is_recording:
+            texts = ["Recording", "Recording.", "Recording..", "Recording..."]
+            self.record_button.config(text=texts[self.record_text_index])
+            self.record_text_index = (self.record_text_index + 1) % len(texts)
+            self.master.after(500, self.update_record_button_text)
 
 if __name__ == "__main__":
     root = tk.Tk()
