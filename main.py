@@ -5,7 +5,6 @@ os.environ["GROQ_API_KEY"] ='gsk_44mXRjF7JNExgsvDYUnvWGdyb3FY556ZmgSKim29v8wl6vS
 
 openai_llm = ChatGroq(api_key=os.environ.get("GROQ_API_KEY"), model="llama-3.1-70b-versatile")
 
-
 uselessAI = Agent(
     role='Non-sense response',
     goal="Response to questions as useless as possible",
@@ -22,7 +21,16 @@ useless_task = Task(
     expected_output="non-sense answer about {input}",
 )
 
+image_task = Task(
+    description="Change the text to a single word that is completely unrelated to the input",
+    agent=uselessAI,
+    expected_output="non-sense answer about {input}",
+)
+
+
 crew = Crew(agents=[uselessAI], tasks=[useless_task])
+
+image = Crew(agents=[uselessAI], tasks=[image_task])
 
 def functionality(question):    
     while(True):
