@@ -9,9 +9,9 @@ openai_llm = ChatGroq(api_key=os.environ.get("GROQ_API_KEY"), model="llama-3.1-7
 
 uselessAI = Agent(
     role='Non-sense response',
-    goal="Response to questions as useless as possible",
-    backstory="You are an expert at responding questions with non-sense answer",
-    description = "You are an expert at responding questions with non-sense answer",
+    goal="Response to questions as unrelated as possible. As random as possible.",
+    backstory="You are an expert at responding questions with non-sense random answer",
+    description="You are an expert at responding questions with non-sense random answer",
     verbose=True,
     allow_delegation=False,
     llm=openai_llm,
@@ -19,10 +19,10 @@ uselessAI = Agent(
 
 wordAI = Agent(
     role='Provide 1 word unrelated answer',
-    goal="Response to question with a single unrealted word",
+    goal="Response to question with a single unrealted word. Provide any of fields",
     backstory="Best 1 word responserer",
     description = "You provide responses to question with a single unrealted word",
-    verbose=True,
+    verbose=False,
     allow_delegation=False,
     llm=openai_llm,
 )
@@ -42,7 +42,7 @@ image_task = Task(
 
 crew = Crew(agents=[uselessAI], tasks=[useless_task])
 
-image = Crew(agents=[uselessAI], tasks=[image_task])
+image = Crew(agents=[wordAI], tasks=[image_task])
 
 def functionality(question):    
     while(True):

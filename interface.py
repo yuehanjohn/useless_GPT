@@ -127,7 +127,7 @@ class EnhancedOutputInterface:
             self.update_output(f"{output}\n\n")
             self.input_entry.delete("1.0", tk.END)
             
-            img = generate_image(opposite_text(input_text))
+            img = generate_image(output)
             if img:
                 self.display_image(img)
             else:
