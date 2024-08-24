@@ -1,7 +1,7 @@
 import os
 from crewai import Agent, Task, Crew
 from langchain_groq import ChatGroq
-os.environ["GROQ_API_KEY"] ='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'
+os.environ["GROQ_API_KEY"] ='YOUR_GROQ_API'
 
 
 openai_llm = ChatGroq(api_key=os.environ.get("GROQ_API_KEY"), model="llama-3.1-70b-versatile")
