@@ -16,7 +16,6 @@ uselessAI = Agent(
     llm=openai_llm,
 )
 
-# Create Tasks
 useless_task = Task(
     description="Reply non-sense answeer to user's question",
     agent=uselessAI,
