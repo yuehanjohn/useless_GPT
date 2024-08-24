@@ -142,7 +142,7 @@ class EnhancedOutputInterface:
             else:
                 self.display_placeholder_image()
         else:
-            self.update_output("Please enter some input.\n\n")
+            self.update_output("Please ask me something!! :( </3.\n\n")
 
     def update_output(self, text):
         text = alternate_capitalization(text)

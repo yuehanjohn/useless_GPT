@@ -1,7 +1,7 @@
 import os
 from crewai import Agent, Task, Crew, Process
 from langchain_groq import ChatGroq
-os.environ["GROQ_API_KEY"] ='INSERT_API_KEY_HERE'
+os.environ["GROQ_API_KEY"] ='YOUR_KEY_HERE  '
 
 #from test import fetch_tkinter_image
 
